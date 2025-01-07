@@ -22,7 +22,7 @@ export async function generateTitleFromUserMessage({
   message: CoreUserMessage;
 }) {
   const { text: title } = await generateText({
-    model: customModel("mistralai/ministral-8b"),
+    model: customModel("openai/gpt-4o-mini"),
     system: `\n
     - you will generate a short title based on the first message a user begins a conversation with
     - ensure it is not more than 80 characters long
