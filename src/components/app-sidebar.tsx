@@ -36,7 +36,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
               className="flex flex-row items-center gap-3"
             >
               <span className="cursor-pointer rounded-md px-2 text-lg font-semibold hover:bg-muted">
-                Chatbot
+                Prompter
               </span>
             </Link>
             <Tooltip>
@@ -54,7 +54,7 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                   <PlusIcon />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent align="end">New Chat</TooltipContent>
+              <TooltipContent align="end">New Prompt</TooltipContent>
             </Tooltip>
           </div>
         </SidebarMenu>

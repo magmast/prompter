@@ -30,13 +30,13 @@ const visibilities: Array<{
   {
     id: "private",
     label: "Private",
-    description: "Only you can access this chat",
+    description: "Only you can access this prompt",
     icon: <LockIcon />,
   },
   {
     id: "public",
     label: "Public",
-    description: "Anyone with the link can access this chat",
+    description: "Anyone with the link can access this prompt",
     icon: <GlobeIcon />,
   },
 ];

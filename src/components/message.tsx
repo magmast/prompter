@@ -18,7 +18,6 @@ import { MessageEditor } from "./message-editor";
 import { PreviewAttachment } from "./preview-attachment";
 import { Button } from "./ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
-import { Weather } from "./weather";
 
 const PurePreviewMessage = ({
   chatId,
@@ -134,9 +133,7 @@ const PurePreviewMessage = ({
 
                     return (
                       <div key={toolCallId}>
-                        {toolName === "getWeather" ? (
-                          <Weather weatherAtLocation={result} />
-                        ) : toolName === "createDocument" ? (
+                        {toolName === "createDocument" ? (
                           <DocumentPreview
                             isReadonly={isReadonly}
                             result={result}
@@ -166,9 +163,7 @@ const PurePreviewMessage = ({
                         skeleton: ["getWeather"].includes(toolName),
                       })}
                     >
-                      {toolName === "getWeather" ? (
-                        <Weather />
-                      ) : toolName === "createDocument" ? (
+                      {toolName === "createDocument" ? (
                         <DocumentPreview isReadonly={isReadonly} args={args} />
                       ) : toolName === "updateDocument" ? (
                         <DocumentToolCall
