@@ -8,7 +8,7 @@ export const DiffType = {
   Inserted: 1,
 };
 
-export const patchDocumentNode = (schema, oldNode, newNode) => {
+export const patchPromptNode = (schema, oldNode, newNode) => {
   assertNodeTypeEqual(oldNode, newNode);
 
   const finalLeftChildren = [];
@@ -173,13 +173,11 @@ const patchRemainNodes = (schema, oldChildren, newChildren) => {
       }
     }
     if (updateLeft) {
-      finalLeftChildren.push(
-        patchDocumentNode(schema, leftOldNode, leftNewNode),
-      );
+      finalLeftChildren.push(patchPromptNode(schema, leftOldNode, leftNewNode));
       left += 1;
     } else if (updateRight) {
       finalRightChildren.unshift(
-        patchDocumentNode(schema, rightOldNode, rightNewNode),
+        patchPromptNode(schema, rightOldNode, rightNewNode),
       );
       right += 1;
     } else {
@@ -431,7 +429,7 @@ export const createNewNode = (oldNode, children) => {
 };
 
 export const createDiffNode = (schema, node, type) => {
-  return mapDocumentNode(node, (node) => {
+  return mapPromptNode(node, (node) => {
     if (isTextNode(node)) {
       return createTextNode(schema, getNodeText(node), [
         ...(node.marks || []),
@@ -442,11 +440,11 @@ export const createDiffNode = (schema, node, type) => {
   });
 };
 
-function mapDocumentNode(node, mapper) {
+function mapPromptNode(node, mapper) {
   const copy = node.copy(
     Fragment.from(
       node.content.content
-        .map((node) => mapDocumentNode(node, mapper))
+        .map((node) => mapPromptNode(node, mapper))
         .filter((n) => n),
     ),
   );
@@ -470,5 +468,5 @@ export const createTextNode = (schema, content, marks = []) => {
 export const diffEditor = (schema, oldDoc, newDoc) => {
   const oldNode = Node.fromJSON(schema, oldDoc);
   const newNode = Node.fromJSON(schema, newDoc);
-  return patchDocumentNode(schema, oldNode, newNode);
+  return patchPromptNode(schema, oldNode, newNode);
 };

@@ -10,17 +10,13 @@ import { z } from "zod";
 import { auth } from "@/app/(auth)/auth";
 import { customModel } from "@/lib/ai";
 import { models } from "@/lib/ai/models";
-import {
-  codePrompt,
-  systemPrompt,
-  updateDocumentPrompt,
-} from "@/lib/ai/prompts";
+import { codePrompt, systemPrompt, updatePromptPrompt } from "@/lib/ai/prompts";
 import {
   deleteChatById,
   getChatById,
-  getDocumentById,
+  getPromptById,
   saveChat,
-  saveDocument,
+  savePrompt,
   saveMessages,
   saveSuggestions,
 } from "@/lib/db/queries";
@@ -35,11 +31,11 @@ import { generateTitleFromUserMessage } from "../../actions";
 
 export const maxDuration = 60;
 
-type AllowedTools = "createDocument" | "updateDocument" | "requestSuggestions";
+type AllowedTools = "createPrompt" | "updatePrompt" | "requestSuggestions";
 
 const allTools: AllowedTools[] = [
-  "createDocument",
-  "updateDocument",
+  "createPrompt",
+  "updatePrompt",
   "requestSuggestions",
 ];
 
@@ -101,9 +97,9 @@ export async function POST(request: Request) {
         maxSteps: 5,
         experimental_activeTools: allTools,
         tools: {
-          createDocument: {
+          createPrompt: {
             description:
-              "Create a document for a writing activity. This tool will call other functions that will generate the contents of the document based on the title and kind.",
+              "Create a prompt for a writing activity. This tool will call other functions that will generate the contents of the prompt based on the title and kind.",
             parameters: z.object({
               title: z.string(),
               kind: z.enum(["text", "code"]),
@@ -172,7 +168,7 @@ export async function POST(request: Request) {
                 dataStream.writeData({ type: "finish", content: "" });
               }
               if (session.user?.id) {
-                await saveDocument({
+                await savePrompt({
                   id,
                   title,
                   kind,
@@ -184,36 +180,35 @@ export async function POST(request: Request) {
                 id,
                 title,
                 kind,
-                content:
-                  "A document was created and is now visible to the user.",
+                content: "A prompt was created and is now visible to the user.",
               };
             },
           },
-          updateDocument: {
-            description: "Update a document with the given description.",
+          updatePrompt: {
+            description: "Update a prompt with the given description.",
             parameters: z.object({
-              id: z.string().describe("The ID of the document to update"),
+              id: z.string().describe("The ID of the prompt to update"),
               description: z
                 .string()
                 .describe("The description of changes that need to be made"),
             }),
             execute: async ({ id, description }) => {
-              const document = await getDocumentById({ id });
-              if (!document) {
+              const prompt = await getPromptById({ id });
+              if (!prompt) {
                 return {
-                  error: "Document not found",
+                  error: "Prompt not found",
                 };
               }
-              const { content: currentContent } = document;
+              const { content: currentContent } = prompt;
               let draftText = "";
               dataStream.writeData({
                 type: "clear",
-                content: document.title,
+                content: prompt.title,
               });
-              if (document.kind === "text") {
+              if (prompt.kind === "text") {
                 const { fullStream } = streamText({
                   model: customModel(model.apiIdentifier),
-                  system: updateDocumentPrompt(currentContent),
+                  system: updatePromptPrompt(currentContent),
                   prompt: description,
                   experimental_providerMetadata: {
                     openai: {
@@ -236,10 +231,10 @@ export async function POST(request: Request) {
                   }
                 }
                 dataStream.writeData({ type: "finish", content: "" });
-              } else if (document.kind === "code") {
+              } else if (prompt.kind === "code") {
                 const { fullStream } = streamObject({
                   model: customModel(model.apiIdentifier),
-                  system: updateDocumentPrompt(currentContent),
+                  system: updatePromptPrompt(currentContent),
                   prompt: description,
                   schema: z.object({
                     code: z.string(),
@@ -262,44 +257,44 @@ export async function POST(request: Request) {
                 dataStream.writeData({ type: "finish", content: "" });
               }
               if (session.user?.id) {
-                await saveDocument({
+                await savePrompt({
                   id,
-                  title: document.title,
+                  title: prompt.title,
                   content: draftText,
-                  kind: document.kind,
+                  kind: prompt.kind,
                   userId: session.user.id,
                 });
               }
               return {
                 id,
-                title: document.title,
-                kind: document.kind,
-                content: "The document has been updated successfully.",
+                title: prompt.title,
+                kind: prompt.kind,
+                content: "The prompt has been updated successfully.",
               };
             },
           },
           requestSuggestions: {
-            description: "Request suggestions for a document",
+            description: "Request suggestions for a prompt",
             parameters: z.object({
-              documentId: z
+              promptId: z
                 .string()
-                .describe("The ID of the document to request edits"),
+                .describe("The ID of the prompt to request edits"),
             }),
-            execute: async ({ documentId }) => {
-              const document = await getDocumentById({ id: documentId });
-              if (!document || !document.content) {
+            execute: async ({ promptId }) => {
+              const prompt = await getPromptById({ id: promptId });
+              if (!prompt || !prompt.content) {
                 return {
-                  error: "Document not found",
+                  error: "Prompt not found",
                 };
               }
               const suggestions: Array<
-                Omit<Suggestion, "userId" | "createdAt" | "documentCreatedAt">
+                Omit<Suggestion, "userId" | "createdAt" | "promptCreatedAt">
               > = [];
               const { elementStream } = streamObject({
                 model: customModel(model.apiIdentifier),
                 system:
                   "You are a help writing assistant. Given a piece of writing, please offer suggestions to improve the piece of writing and describe the change. It is very important for the edits to contain full sentences instead of just words. Max 5 suggestions.",
-                prompt: document.content,
+                prompt: prompt.content,
                 output: "array",
                 schema: z.object({
                   originalSentence: z
@@ -319,7 +314,7 @@ export async function POST(request: Request) {
                   suggestedText: element.suggestedSentence,
                   description: element.description,
                   id: generateUUID(),
-                  documentId: documentId,
+                  promptId,
                   isResolved: false,
                 };
                 dataStream.writeData({
@@ -335,15 +330,15 @@ export async function POST(request: Request) {
                     ...suggestion,
                     userId,
                     createdAt: new Date(),
-                    documentCreatedAt: document.createdAt,
+                    promptCreatedAt: prompt.createdAt,
                   })),
                 });
               }
               return {
-                id: documentId,
-                title: document.title,
-                kind: document.kind,
-                message: "Suggestions have been added to the document",
+                id: promptId,
+                title: prompt.title,
+                kind: prompt.kind,
+                message: "Suggestions have been added to the prompt",
               };
             },
           },

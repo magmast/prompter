@@ -7,21 +7,21 @@ import { useSWRConfig } from "swr";
 import { useWindowSize } from "usehooks-ts";
 
 import { useBlock } from "@/hooks/use-block";
-import type { Document } from "@/lib/db/schema";
-import { getDocumentTimestampByIndex } from "@/lib/utils";
+import type { Prompt } from "@/lib/db/schema";
+import { getPromptTimestampByIndex } from "@/lib/utils";
 
 import { LoaderIcon } from "./icons";
 import { Button } from "./ui/button";
 
 interface VersionFooterProps {
   handleVersionChange: (type: "next" | "prev" | "toggle" | "latest") => void;
-  documents: Array<Document> | undefined;
+  prompts: Array<Prompt> | undefined;
   currentVersionIndex: number;
 }
 
 export const VersionFooter = ({
   handleVersionChange,
-  documents,
+  prompts: prompts,
   currentVersionIndex,
 }: VersionFooterProps) => {
   const { block } = useBlock();
@@ -32,7 +32,7 @@ export const VersionFooter = ({
   const { mutate } = useSWRConfig();
   const [isMutating, setIsMutating] = useState(false);
 
-  if (!documents) return;
+  if (!prompts) return;
 
   return (
     <motion.div
@@ -56,25 +56,25 @@ export const VersionFooter = ({
             setIsMutating(true);
 
             mutate(
-              `/api/document?id=${block.documentId}`,
-              await fetch(`/api/document?id=${block.documentId}`, {
+              `/api/prompt?id=${block.promptId}`,
+              await fetch(`/api/prompt?id=${block.promptId}`, {
                 method: "PATCH",
                 body: JSON.stringify({
-                  timestamp: getDocumentTimestampByIndex(
-                    documents,
+                  timestamp: getPromptTimestampByIndex(
+                    prompts,
                     currentVersionIndex,
                   ),
                 }),
               }),
               {
-                optimisticData: documents
+                optimisticData: prompts
                   ? [
-                      ...documents.filter((document) =>
+                      ...prompts.filter((prompt) =>
                         isAfter(
-                          new Date(document.createdAt),
+                          new Date(prompt.createdAt),
                           new Date(
-                            getDocumentTimestampByIndex(
-                              documents,
+                            getPromptTimestampByIndex(
+                              prompts,
                               currentVersionIndex,
                             ),
                           ),

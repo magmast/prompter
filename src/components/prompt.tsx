@@ -24,17 +24,17 @@ const getActionText = (
   }
 };
 
-interface DocumentToolResultProps {
+interface PromptToolResultProps {
   type: "create" | "update" | "request-suggestions";
   result: { id: string; title: string; kind: BlockKind };
   isReadonly: boolean;
 }
 
-function PureDocumentToolResult({
+function PurePromptToolResult({
   type,
   result,
   isReadonly,
-}: DocumentToolResultProps) {
+}: PromptToolResultProps) {
   const { setBlock } = useBlock();
 
   return (
@@ -59,7 +59,7 @@ function PureDocumentToolResult({
         };
 
         setBlock({
-          documentId: result.id,
+          promptId: result.id,
           kind: result.kind,
           content: "",
           title: result.title,
@@ -85,19 +85,15 @@ function PureDocumentToolResult({
   );
 }
 
-export const DocumentToolResult = memo(PureDocumentToolResult, () => true);
+export const PromptToolResult = memo(PurePromptToolResult, () => true);
 
-interface DocumentToolCallProps {
+interface PromptToolCallProps {
   type: "create" | "update" | "request-suggestions";
   args: { title: string };
   isReadonly: boolean;
 }
 
-function PureDocumentToolCall({
-  type,
-  args,
-  isReadonly,
-}: DocumentToolCallProps) {
+function PurePromptToolCall({ type, args, isReadonly }: PromptToolCallProps) {
   const { setBlock } = useBlock();
 
   return (
@@ -149,4 +145,4 @@ function PureDocumentToolCall({
   );
 }
 
-export const DocumentToolCall = memo(PureDocumentToolCall, () => true);
+export const PromptToolCall = memo(PurePromptToolCall, () => true);

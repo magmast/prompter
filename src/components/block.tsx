@@ -19,7 +19,7 @@ import useSWR, { useSWRConfig } from "swr";
 import { useDebounceCallback, useWindowSize } from "usehooks-ts";
 
 import { useBlock } from "@/hooks/use-block";
-import type { Document, Suggestion, Vote } from "@/lib/db/schema";
+import type { Prompt, Suggestion, Vote } from "@/lib/db/schema";
 import { cn, fetcher } from "@/lib/utils";
 
 import { BlockActions } from "./block-actions";
@@ -28,9 +28,9 @@ import { BlockMessages } from "./block-messages";
 import { CodeEditor } from "./code-editor";
 import { Console } from "./console";
 import { DiffView } from "./diffview";
-import { DocumentSkeleton } from "./document-skeleton";
 import { Editor } from "./editor";
 import { MultimodalInput } from "./multimodal-input";
+import { PromptSkeleton } from "./prompt-skeleton";
 import { Toolbar } from "./toolbar";
 import { useSidebar } from "./ui/sidebar";
 import { VersionFooter } from "./version-footer";
@@ -39,7 +39,7 @@ export type BlockKind = "text" | "code";
 
 export interface UIBlock {
   title: string;
-  documentId: string;
+  promptId: string;
   kind: BlockKind;
   content: string;
   isVisible: boolean;
@@ -102,19 +102,19 @@ function PureBlock({
   const { block, setBlock } = useBlock();
 
   const {
-    data: documents,
-    isLoading: isDocumentsFetching,
-    mutate: mutateDocuments,
-  } = useSWR<Array<Document>>(
-    block.documentId !== "init" && block.status !== "streaming"
-      ? `/api/document?id=${block.documentId}`
+    data: prompts,
+    isLoading: isPromptFetching,
+    mutate: mutatePrompts,
+  } = useSWR<Array<Prompt>>(
+    block.promptId !== "init" && block.status !== "streaming"
+      ? `/api/prompt?id=${block.promptId}`
       : null,
     fetcher,
   );
 
   const { data: suggestions } = useSWR<Array<Suggestion>>(
-    documents && block && block.status !== "streaming"
-      ? `/api/suggestions?documentId=${block.documentId}`
+    prompts && block && block.status !== "streaming"
+      ? `/api/suggestions?promptId=${block.promptId}`
       : null,
     fetcher,
     {
@@ -123,7 +123,7 @@ function PureBlock({
   );
 
   const [mode, setMode] = useState<"edit" | "diff">("edit");
-  const [document, setDocument] = useState<Document | null>(null);
+  const [prompt, setPrompt] = useState<Prompt | null>(null);
   const [currentVersionIndex, setCurrentVersionIndex] = useState(-1);
   const [consoleOutputs, setConsoleOutputs] = useState<Array<ConsoleOutput>>(
     [],
@@ -132,23 +132,23 @@ function PureBlock({
   const { open: isSidebarOpen } = useSidebar();
 
   useEffect(() => {
-    if (documents && documents.length > 0) {
-      const mostRecentDocument = documents.at(-1);
+    if (prompts && prompts.length > 0) {
+      const mostRecentPrompt = prompts.at(-1);
 
-      if (mostRecentDocument) {
-        setDocument(mostRecentDocument);
-        setCurrentVersionIndex(documents.length - 1);
+      if (mostRecentPrompt) {
+        setPrompt(mostRecentPrompt);
+        setCurrentVersionIndex(prompts.length - 1);
         setBlock((currentBlock) => ({
           ...currentBlock,
-          content: mostRecentDocument.content ?? "",
+          content: mostRecentPrompt.content ?? "",
         }));
       }
     }
-  }, [documents, setBlock]);
+  }, [prompts, setBlock]);
 
   useEffect(() => {
-    mutateDocuments();
-  }, [block.status, mutateDocuments]);
+    mutatePrompts();
+  }, [block.status, mutatePrompts]);
 
   const { mutate } = useSWRConfig();
   const [isContentDirty, setIsContentDirty] = useState(false);
@@ -157,20 +157,20 @@ function PureBlock({
     (updatedContent: string) => {
       if (!block) return;
 
-      mutate<Array<Document>>(
-        `/api/document?id=${block.documentId}`,
-        async (currentDocuments) => {
-          if (!currentDocuments) return undefined;
+      mutate<Array<Prompt>>(
+        `/api/prompt?id=${block.promptId}`,
+        async (currentPrompts) => {
+          if (!currentPrompts) return undefined;
 
-          const currentDocument = currentDocuments.at(-1);
+          const currentPrompt = currentPrompts.at(-1);
 
-          if (!currentDocument || !currentDocument.content) {
+          if (!currentPrompt || !currentPrompt.content) {
             setIsContentDirty(false);
-            return currentDocuments;
+            return currentPrompts;
           }
 
-          if (currentDocument.content !== updatedContent) {
-            await fetch(`/api/document?id=${block.documentId}`, {
+          if (currentPrompt.content !== updatedContent) {
+            await fetch(`/api/prompt?id=${block.promptId}`, {
               method: "POST",
               body: JSON.stringify({
                 title: block.title,
@@ -181,15 +181,15 @@ function PureBlock({
 
             setIsContentDirty(false);
 
-            const newDocument = {
-              ...currentDocument,
+            const newPrompt = {
+              ...currentPrompt,
               content: updatedContent,
               createdAt: new Date(),
             };
 
-            return [...currentDocuments, newDocument];
+            return [...currentPrompts, newPrompt];
           }
-          return currentDocuments;
+          return currentPrompts;
         },
         { revalidate: false },
       );
@@ -204,7 +204,7 @@ function PureBlock({
 
   const saveContent = useCallback(
     (updatedContent: string, debounce: boolean) => {
-      if (document && updatedContent !== document.content) {
+      if (prompt && updatedContent !== prompt.content) {
         setIsContentDirty(true);
 
         if (debounce) {
@@ -214,20 +214,20 @@ function PureBlock({
         }
       }
     },
-    [document, debouncedHandleContentChange, handleContentChange],
+    [prompt, debouncedHandleContentChange, handleContentChange],
   );
 
-  function getDocumentContentById(index: number) {
-    if (!documents) return "";
-    if (!documents[index]) return "";
-    return documents[index].content ?? "";
+  function getPromptContentById(index: number) {
+    if (!prompts) return "";
+    if (!prompts[index]) return "";
+    return prompts[index].content ?? "";
   }
 
   const handleVersionChange = (type: "next" | "prev" | "toggle" | "latest") => {
-    if (!documents) return;
+    if (!prompts) return;
 
     if (type === "latest") {
-      setCurrentVersionIndex(documents.length - 1);
+      setCurrentVersionIndex(prompts.length - 1);
       setMode("edit");
     }
 
@@ -240,7 +240,7 @@ function PureBlock({
         setCurrentVersionIndex((index) => index - 1);
       }
     } else if (type === "next") {
-      if (currentVersionIndex < documents.length - 1) {
+      if (currentVersionIndex < prompts.length - 1) {
         setCurrentVersionIndex((index) => index + 1);
       }
     }
@@ -249,14 +249,14 @@ function PureBlock({
   const [isToolbarVisible, setIsToolbarVisible] = useState(false);
 
   /*
-   * NOTE: if there are no documents, or if
-   * the documents are being fetched, then
+   * NOTE: if there are no prompts, or if
+   * the prompts are being fetched, then
    * we mark it as the current version.
    */
 
   const isCurrentVersion =
-    documents && documents.length > 0
-      ? currentVersionIndex === documents.length - 1
+    prompts && prompts.length > 0
+      ? currentVersionIndex === prompts.length - 1
       : true;
 
   const { width: windowWidth, height: windowHeight } = useWindowSize();
@@ -424,17 +424,17 @@ function PureBlock({
 
                 <div className="flex flex-col">
                   <div className="font-medium">
-                    {document?.title ?? block.title}
+                    {prompt?.title ?? block.title}
                   </div>
 
                   {isContentDirty ? (
                     <div className="text-sm text-muted-foreground">
                       Saving changes...
                     </div>
-                  ) : document ? (
+                  ) : prompt ? (
                     <div className="text-sm text-muted-foreground">
                       {`Updated ${formatDistance(
-                        new Date(document.createdAt),
+                        new Date(prompt.createdAt),
                         new Date(),
                         {
                           addSuffix: true,
@@ -472,14 +472,14 @@ function PureBlock({
                   "mx-auto max-w-[600px]": block.kind === "text",
                 })}
               >
-                {isDocumentsFetching && !block.content ? (
-                  <DocumentSkeleton />
+                {isPromptFetching && !block.content ? (
+                  <PromptSkeleton />
                 ) : block.kind === "code" ? (
                   <CodeEditor
                     content={
                       isCurrentVersion
                         ? block.content
-                        : getDocumentContentById(currentVersionIndex)
+                        : getPromptContentById(currentVersionIndex)
                     }
                     isCurrentVersion={isCurrentVersion}
                     currentVersionIndex={currentVersionIndex}
@@ -493,7 +493,7 @@ function PureBlock({
                       content={
                         isCurrentVersion
                           ? block.content
-                          : getDocumentContentById(currentVersionIndex)
+                          : getPromptContentById(currentVersionIndex)
                       }
                       isCurrentVersion={isCurrentVersion}
                       currentVersionIndex={currentVersionIndex}
@@ -503,10 +503,8 @@ function PureBlock({
                     />
                   ) : (
                     <DiffView
-                      oldContent={getDocumentContentById(
-                        currentVersionIndex - 1,
-                      )}
-                      newContent={getDocumentContentById(currentVersionIndex)}
+                      oldContent={getPromptContentById(currentVersionIndex - 1)}
+                      newContent={getPromptContentById(currentVersionIndex)}
                     />
                   )
                 ) : null}
@@ -535,7 +533,7 @@ function PureBlock({
               {!isCurrentVersion && (
                 <VersionFooter
                   currentVersionIndex={currentVersionIndex}
-                  documents={documents}
+                  prompts={prompts}
                   handleVersionChange={handleVersionChange}
                 />
               )}

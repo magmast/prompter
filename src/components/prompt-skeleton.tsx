@@ -1,6 +1,6 @@
 "use client";
 
-export const DocumentSkeleton = () => {
+export const PromptSkeleton = () => {
   return (
     <div className="flex w-full flex-col gap-4">
       <div className="h-12 w-1/2 animate-pulse rounded-lg bg-muted-foreground/20" />
@@ -14,7 +14,7 @@ export const DocumentSkeleton = () => {
   );
 };
 
-export const InlineDocumentSkeleton = () => {
+export const InlinePromptSkeleton = () => {
   return (
     <div className="flex w-full flex-col gap-4">
       <div className="h-4 w-48 animate-pulse rounded-lg bg-muted-foreground/20" />

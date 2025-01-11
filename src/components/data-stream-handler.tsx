@@ -50,7 +50,7 @@ export function DataStreamHandler({ id }: { id: string }) {
           case "id":
             return {
               ...draftBlock,
-              documentId: delta.content as string,
+              promptId: delta.content as string,
               status: "streaming",
             };
 

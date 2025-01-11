@@ -6,7 +6,7 @@ import useSWR from "swr";
 import type { UIBlock } from "@/components/block";
 
 export const initialBlockData: UIBlock = {
-  documentId: "init",
+  promptId: "init",
   content: "",
   kind: "text",
   title: "",

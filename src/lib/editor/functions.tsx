@@ -7,19 +7,19 @@ import { renderToString } from "react-dom/server";
 
 import { Markdown } from "@/components/markdown";
 
-import { documentSchema } from "./config";
+import { promptSchema } from "./config";
 import { type UISuggestion, createSuggestionWidget } from "./suggestions";
 
-export const buildDocumentFromContent = (content: string) => {
-  const parser = DOMParser.fromSchema(documentSchema);
+export const buildPromptFromContent = (content: string) => {
+  const parser = DOMParser.fromSchema(promptSchema);
   const stringFromMarkdown = renderToString(<Markdown>{content}</Markdown>);
   const tempContainer = document.createElement("div");
   tempContainer.innerHTML = stringFromMarkdown;
   return parser.parse(tempContainer);
 };
 
-export const buildContentFromDocument = (document: Node) => {
-  return defaultMarkdownSerializer.serialize(document);
+export const buildContentFromPrompt = (prompt: Node) => {
+  return defaultMarkdownSerializer.serialize(prompt);
 };
 
 export const createDecorations = (

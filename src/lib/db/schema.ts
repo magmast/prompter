@@ -11,49 +11,49 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-export const user = pgTable("User", {
+export const users = pgTable("users", {
   id: uuid("id").primaryKey().notNull().defaultRandom(),
   email: varchar("email", { length: 64 }).notNull(),
   password: varchar("password", { length: 64 }),
 });
 
-export type User = InferSelectModel<typeof user>;
+export type User = InferSelectModel<typeof users>;
 
-export const chat = pgTable("Chat", {
+export const chats = pgTable("chats", {
   id: uuid("id").primaryKey().notNull().defaultRandom(),
   createdAt: timestamp("createdAt").notNull(),
   title: text("title").notNull(),
   userId: uuid("userId")
     .notNull()
-    .references(() => user.id),
+    .references(() => users.id),
   visibility: varchar("visibility", { enum: ["public", "private"] })
     .notNull()
     .default("private"),
 });
 
-export type Chat = InferSelectModel<typeof chat>;
+export type Chat = InferSelectModel<typeof chats>;
 
-export const message = pgTable("Message", {
+export const messages = pgTable("messages", {
   id: uuid("id").primaryKey().notNull().defaultRandom(),
   chatId: uuid("chatId")
     .notNull()
-    .references(() => chat.id),
+    .references(() => chats.id),
   role: varchar("role").notNull(),
   content: json("content").notNull(),
   createdAt: timestamp("createdAt").notNull(),
 });
 
-export type Message = InferSelectModel<typeof message>;
+export type Message = InferSelectModel<typeof messages>;
 
-export const vote = pgTable(
-  "Vote",
+export const votes = pgTable(
+  "votes",
   {
     chatId: uuid("chatId")
       .notNull()
-      .references(() => chat.id),
+      .references(() => chats.id),
     messageId: uuid("messageId")
       .notNull()
-      .references(() => message.id),
+      .references(() => messages.id),
     isUpvoted: boolean("isUpvoted").notNull(),
   },
   (table) => {
@@ -63,10 +63,10 @@ export const vote = pgTable(
   },
 );
 
-export type Vote = InferSelectModel<typeof vote>;
+export type Vote = InferSelectModel<typeof votes>;
 
-export const document = pgTable(
-  "Document",
+export const prompts = pgTable(
+  "prompts",
   {
     id: uuid("id").notNull().defaultRandom(),
     createdAt: timestamp("createdAt").notNull(),
@@ -77,7 +77,7 @@ export const document = pgTable(
       .default("text"),
     userId: uuid("userId")
       .notNull()
-      .references(() => user.id),
+      .references(() => users.id),
   },
   (table) => {
     return {
@@ -86,30 +86,30 @@ export const document = pgTable(
   },
 );
 
-export type Document = InferSelectModel<typeof document>;
+export type Prompt = InferSelectModel<typeof prompts>;
 
-export const suggestion = pgTable(
-  "Suggestion",
+export const suggestions = pgTable(
+  "suggestions",
   {
     id: uuid("id").notNull().defaultRandom(),
-    documentId: uuid("documentId").notNull(),
-    documentCreatedAt: timestamp("documentCreatedAt").notNull(),
+    promptId: uuid("promptId").notNull(),
+    promptCreatedAt: timestamp("promptCreatedAt").notNull(),
     originalText: text("originalText").notNull(),
     suggestedText: text("suggestedText").notNull(),
     description: text("description"),
     isResolved: boolean("isResolved").notNull().default(false),
     userId: uuid("userId")
       .notNull()
-      .references(() => user.id),
+      .references(() => users.id),
     createdAt: timestamp("createdAt").notNull(),
   },
   (table) => ({
     pk: primaryKey({ columns: [table.id] }),
-    documentRef: foreignKey({
-      columns: [table.documentId, table.documentCreatedAt],
-      foreignColumns: [document.id, document.createdAt],
+    promptRef: foreignKey({
+      columns: [table.promptId, table.promptCreatedAt],
+      foreignColumns: [prompts.id, prompts.createdAt],
     }),
   }),
 );
 
-export type Suggestion = InferSelectModel<typeof suggestion>;
+export type Suggestion = InferSelectModel<typeof suggestions>;

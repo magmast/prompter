@@ -6,9 +6,9 @@ import type { Transaction } from "prosemirror-state";
 import type { EditorView } from "prosemirror-view";
 import type { MutableRefObject } from "react";
 
-import { buildContentFromDocument } from "./functions";
+import { buildContentFromPrompt } from "./functions";
 
-export const documentSchema = new Schema({
+export const promptSchema = new Schema({
   nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
   marks: schema.spec.marks,
 });
@@ -16,7 +16,7 @@ export const documentSchema = new Schema({
 export function headingRule(level: number) {
   return textblockTypeInputRule(
     new RegExp(`^(#{1,${level}})\\s$`),
-    documentSchema.nodes.heading,
+    promptSchema.nodes.heading,
     () => ({ level }),
   );
 }
@@ -36,7 +36,7 @@ export const handleTransaction = ({
   editorRef.current.updateState(newState);
 
   if (transaction.docChanged && !transaction.getMeta("no-save")) {
-    const updatedContent = buildContentFromDocument(newState.doc);
+    const updatedContent = buildContentFromPrompt(newState.doc);
 
     if (transaction.getMeta("no-debounce")) {
       saveContent(updatedContent, false);

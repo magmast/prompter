@@ -8,13 +8,13 @@ import React, { memo, useEffect, useRef } from "react";
 
 import type { Suggestion } from "@/lib/db/schema";
 import {
-  documentSchema,
+  promptSchema,
   handleTransaction,
   headingRule,
 } from "@/lib/editor/config";
 import {
-  buildContentFromDocument,
-  buildDocumentFromContent,
+  buildContentFromPrompt,
+  buildPromptFromContent,
   createDecorations,
 } from "@/lib/editor/functions";
 import {
@@ -44,9 +44,9 @@ function PureEditor({
   useEffect(() => {
     if (containerRef.current && !editorRef.current) {
       const state = EditorState.create({
-        doc: buildDocumentFromContent(content),
+        doc: buildPromptFromContent(content),
         plugins: [
-          ...exampleSetup({ schema: documentSchema, menuBar: false }),
+          ...exampleSetup({ schema: promptSchema, menuBar: false }),
           inputRules({
             rules: [
               headingRule(1),
@@ -88,17 +88,17 @@ function PureEditor({
 
   useEffect(() => {
     if (editorRef.current && content) {
-      const currentContent = buildContentFromDocument(
+      const currentContent = buildContentFromPrompt(
         editorRef.current.state.doc,
       );
 
       if (status === "streaming") {
-        const newDocument = buildDocumentFromContent(content);
+        const newPrompt = buildPromptFromContent(content);
 
         const transaction = editorRef.current.state.tr.replaceWith(
           0,
           editorRef.current.state.doc.content.size,
-          newDocument.content,
+          newPrompt.content,
         );
 
         transaction.setMeta("no-save", true);
@@ -107,12 +107,12 @@ function PureEditor({
       }
 
       if (currentContent !== content) {
-        const newDocument = buildDocumentFromContent(content);
+        const newPrompt = buildPromptFromContent(content);
 
         const transaction = editorRef.current.state.tr.replaceWith(
           0,
           editorRef.current.state.doc.content.size,
-          newDocument.content,
+          newPrompt.content,
         );
 
         transaction.setMeta("no-save", true);

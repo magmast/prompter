@@ -9,13 +9,13 @@ import { memo, useState } from "react";
 import type { Vote } from "@/lib/db/schema";
 import { cn } from "@/lib/utils";
 
-import { DocumentToolCall, DocumentToolResult } from "./document";
-import { DocumentPreview } from "./document-preview";
 import { PencilEditIcon, SparklesIcon } from "./icons";
 import { Markdown } from "./markdown";
 import { MessageActions } from "./message-actions";
 import { MessageEditor } from "./message-editor";
 import { PreviewAttachment } from "./preview-attachment";
+import { PromptToolCall, PromptToolResult } from "./prompt";
+import { PromptPreview } from "./prompt-preview";
 import { Button } from "./ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
@@ -133,19 +133,19 @@ const PurePreviewMessage = ({
 
                     return (
                       <div key={toolCallId}>
-                        {toolName === "createDocument" ? (
-                          <DocumentPreview
+                        {toolName === "createPrompt" ? (
+                          <PromptPreview
                             isReadonly={isReadonly}
                             result={result}
                           />
-                        ) : toolName === "updateDocument" ? (
-                          <DocumentToolResult
+                        ) : toolName === "updatePrompt" ? (
+                          <PromptToolResult
                             type="update"
                             result={result}
                             isReadonly={isReadonly}
                           />
                         ) : toolName === "requestSuggestions" ? (
-                          <DocumentToolResult
+                          <PromptToolResult
                             type="request-suggestions"
                             result={result}
                             isReadonly={isReadonly}
@@ -163,16 +163,16 @@ const PurePreviewMessage = ({
                         skeleton: ["getWeather"].includes(toolName),
                       })}
                     >
-                      {toolName === "createDocument" ? (
-                        <DocumentPreview isReadonly={isReadonly} args={args} />
-                      ) : toolName === "updateDocument" ? (
-                        <DocumentToolCall
+                      {toolName === "createPrompt" ? (
+                        <PromptPreview isReadonly={isReadonly} args={args} />
+                      ) : toolName === "updatePrompt" ? (
+                        <PromptToolCall
                           type="update"
                           args={args}
                           isReadonly={isReadonly}
                         />
                       ) : toolName === "requestSuggestions" ? (
-                        <DocumentToolCall
+                        <PromptToolCall
                           type="request-suggestions"
                           args={args}
                           isReadonly={isReadonly}

@@ -1,11 +1,11 @@
 import { auth } from "@/app/(auth)/auth";
-import { getSuggestionsByDocumentId } from "@/lib/db/queries";
+import { getSuggestionsByPromptId } from "@/lib/db/queries";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const documentId = searchParams.get("documentId");
+  const promptId = searchParams.get("promptId");
 
-  if (!documentId) {
+  if (!promptId) {
     return new Response("Not Found", { status: 404 });
   }
 
@@ -15,8 +15,8 @@ export async function GET(request: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const suggestions = await getSuggestionsByDocumentId({
-    documentId,
+  const suggestions = await getSuggestionsByPromptId({
+    promptId,
   });
 
   const [suggestion] = suggestions;

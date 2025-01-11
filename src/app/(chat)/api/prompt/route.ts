@@ -1,9 +1,9 @@
 import { auth } from "@/app/(auth)/auth";
 import type { BlockKind } from "@/components/block";
 import {
-  deleteDocumentsByIdAfterTimestamp,
-  getDocumentsById,
-  saveDocument,
+  deletePromptsByIdAfterTimestamp,
+  getPromptsById,
+  savePrompt,
 } from "@/lib/db/queries";
 
 export async function GET(request: Request) {
@@ -20,19 +20,19 @@ export async function GET(request: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const documents = await getDocumentsById({ id });
+  const prompts = await getPromptsById({ id });
 
-  const [document] = documents;
+  const [prompt] = prompts;
 
-  if (!document) {
+  if (!prompt) {
     return new Response("Not Found", { status: 404 });
   }
 
-  if (document.userId !== session.user.id) {
+  if (prompt.userId !== session.user.id) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  return Response.json(documents, { status: 200 });
+  return Response.json(prompts, { status: 200 });
 }
 
 export async function POST(request: Request) {
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
   }: { content: string; title: string; kind: BlockKind } = await request.json();
 
   if (session.user?.id) {
-    const document = await saveDocument({
+    const prompt = await savePrompt({
       id,
       content,
       title,
@@ -64,7 +64,7 @@ export async function POST(request: Request) {
       userId: session.user.id,
     });
 
-    return Response.json(document, { status: 200 });
+    return Response.json(prompt, { status: 200 });
   }
   return new Response("Unauthorized", { status: 401 });
 }
@@ -85,15 +85,15 @@ export async function PATCH(request: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const documents = await getDocumentsById({ id });
+  const prompts = await getPromptsById({ id });
 
-  const [document] = documents;
+  const [prompt] = prompts;
 
-  if (document.userId !== session.user.id) {
+  if (prompt.userId !== session.user.id) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  await deleteDocumentsByIdAfterTimestamp({
+  await deletePromptsByIdAfterTimestamp({
     id,
     timestamp: new Date(timestamp),
   });
