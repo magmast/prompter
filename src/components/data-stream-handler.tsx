@@ -7,8 +7,6 @@ import { initialBlockData, useBlock } from "@/hooks/use-block";
 import { useUserMessageId } from "@/hooks/use-user-message-id";
 import type { Suggestion } from "@/lib/db/schema";
 
-import type { BlockKind } from "./block";
-
 type DataStreamDelta = {
   type:
     | "text-delta"
@@ -18,8 +16,7 @@ type DataStreamDelta = {
     | "suggestion"
     | "clear"
     | "finish"
-    | "user-message-id"
-    | "kind";
+    | "user-message-id";
   content: string | Suggestion;
 };
 
@@ -58,13 +55,6 @@ export function DataStreamHandler({ id }: { id: string }) {
             return {
               ...draftBlock,
               title: delta.content as string,
-              status: "streaming",
-            };
-
-          case "kind":
-            return {
-              ...draftBlock,
-              kind: delta.content as BlockKind,
               status: "streaming",
             };
 

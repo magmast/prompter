@@ -8,7 +8,6 @@ import type { UIBlock } from "@/components/block";
 export const initialBlockData: UIBlock = {
   promptId: "init",
   content: "",
-  kind: "text",
   title: "",
   status: "idle",
   isVisible: false,

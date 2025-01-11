@@ -3,7 +3,6 @@ import { toast } from "sonner";
 
 import { useBlock } from "@/hooks/use-block";
 
-import type { BlockKind } from "./block";
 import { FileIcon, LoaderIcon, MessageIcon, PencilEditIcon } from "./icons";
 
 const getActionText = (
@@ -26,7 +25,7 @@ const getActionText = (
 
 interface PromptToolResultProps {
   type: "create" | "update" | "request-suggestions";
-  result: { id: string; title: string; kind: BlockKind };
+  result: { id: string; title: string };
   isReadonly: boolean;
 }
 
@@ -60,7 +59,6 @@ function PurePromptToolResult({
 
         setBlock({
           promptId: result.id,
-          kind: result.kind,
           content: "",
           title: result.title,
           isVisible: true,

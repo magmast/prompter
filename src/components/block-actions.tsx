@@ -129,34 +129,26 @@ function PureBlockActions({
 
   return (
     <div className="flex flex-row gap-1">
-      {block.kind === "code" && (
-        <RunCodeButton block={block} setConsoleOutputs={setConsoleOutputs} />
-      )}
-
-      {block.kind === "text" && (
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="outline"
-              className={cn(
-                "!pointer-events-auto h-fit p-2 dark:hover:bg-zinc-700",
-                {
-                  "bg-muted": mode === "diff",
-                },
-              )}
-              onClick={() => {
-                handleVersionChange("toggle");
-              }}
-              disabled={
-                block.status === "streaming" || currentVersionIndex === 0
-              }
-            >
-              <ClockRewind size={18} />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>View changes</TooltipContent>
-        </Tooltip>
-      )}
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="outline"
+            className={cn(
+              "!pointer-events-auto h-fit p-2 dark:hover:bg-zinc-700",
+              {
+                "bg-muted": mode === "diff",
+              },
+            )}
+            onClick={() => {
+              handleVersionChange("toggle");
+            }}
+            disabled={block.status === "streaming" || currentVersionIndex === 0}
+          >
+            <ClockRewind size={18} />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>View changes</TooltipContent>
+      </Tooltip>
 
       <Tooltip>
         <TooltipTrigger asChild>

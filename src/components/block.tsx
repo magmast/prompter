@@ -35,12 +35,9 @@ import { Toolbar } from "./toolbar";
 import { useSidebar } from "./ui/sidebar";
 import { VersionFooter } from "./version-footer";
 
-export type BlockKind = "text" | "code";
-
 export interface UIBlock {
   title: string;
   promptId: string;
-  kind: BlockKind;
   content: string;
   isVisible: boolean;
   status: "streaming" | "idle";
@@ -175,7 +172,6 @@ function PureBlock({
               body: JSON.stringify({
                 title: block.title,
                 content: updatedContent,
-                kind: block.kind,
               }),
             });
 
@@ -457,25 +453,12 @@ function PureBlock({
               />
             </div>
 
-            <div
-              className={cn(
-                "h-full !max-w-full items-center overflow-y-scroll bg-background pb-40 dark:bg-muted",
-                {
-                  "px-2 py-2": block.kind === "code",
-                  "px-4 py-8 md:p-20": block.kind === "text",
-                },
-              )}
-            >
-              <div
-                className={cn("flex flex-row", {
-                  "": block.kind === "code",
-                  "mx-auto max-w-[600px]": block.kind === "text",
-                })}
-              >
+            <div className="h-full !max-w-full items-center overflow-y-scroll bg-background px-4 py-8 pb-40 dark:bg-muted md:p-20">
+              <div className="mx-auto flex max-w-[600px] flex-row">
                 {isPromptFetching && !block.content ? (
                   <PromptSkeleton />
-                ) : block.kind === "code" ? (
-                  <CodeEditor
+                ) : mode === "edit" ? (
+                  <Editor
                     content={
                       isCurrentVersion
                         ? block.content
@@ -483,31 +466,16 @@ function PureBlock({
                     }
                     isCurrentVersion={isCurrentVersion}
                     currentVersionIndex={currentVersionIndex}
-                    suggestions={suggestions ?? []}
                     status={block.status}
                     saveContent={saveContent}
+                    suggestions={isCurrentVersion ? (suggestions ?? []) : []}
                   />
-                ) : block.kind === "text" ? (
-                  mode === "edit" ? (
-                    <Editor
-                      content={
-                        isCurrentVersion
-                          ? block.content
-                          : getPromptContentById(currentVersionIndex)
-                      }
-                      isCurrentVersion={isCurrentVersion}
-                      currentVersionIndex={currentVersionIndex}
-                      status={block.status}
-                      saveContent={saveContent}
-                      suggestions={isCurrentVersion ? (suggestions ?? []) : []}
-                    />
-                  ) : (
-                    <DiffView
-                      oldContent={getPromptContentById(currentVersionIndex - 1)}
-                      newContent={getPromptContentById(currentVersionIndex)}
-                    />
-                  )
-                ) : null}
+                ) : (
+                  <DiffView
+                    oldContent={getPromptContentById(currentVersionIndex - 1)}
+                    newContent={getPromptContentById(currentVersionIndex)}
+                  />
+                )}
 
                 {suggestions ? (
                   <div className="h-dvh w-12 shrink-0 md:hidden" />
@@ -522,7 +490,6 @@ function PureBlock({
                       isLoading={isLoading}
                       stop={stop}
                       setMessages={setMessages}
-                      blockKind={block.kind}
                     />
                   )}
                 </AnimatePresence>

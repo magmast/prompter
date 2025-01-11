@@ -5,20 +5,16 @@ import { useState } from "react";
 import { useWindowSize } from "usehooks-ts";
 
 import type { UISuggestion } from "@/lib/editor/suggestions";
-import { cn } from "@/lib/utils";
 
-import type { BlockKind } from "./block";
 import { CrossIcon, MessageIcon } from "./icons";
 import { Button } from "./ui/button";
 
 export const Suggestion = ({
   suggestion,
   onApply,
-  blockKind,
 }: {
   suggestion: UISuggestion;
   onApply: () => void;
-  blockKind: BlockKind;
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { width: windowWidth } = useWindowSize();
@@ -27,13 +23,8 @@ export const Suggestion = ({
     <AnimatePresence>
       {!isExpanded ? (
         <motion.div
-          className={cn("cursor-pointer p-1 text-muted-foreground", {
-            "absolute -right-8": blockKind === "text",
-            "sticky right-4 top-0": blockKind === "code",
-          })}
-          onClick={() => {
-            setIsExpanded(true);
-          }}
+          className="absolute -right-8 cursor-pointer p-1 text-muted-foreground"
+          onClick={() => setIsExpanded(true)}
           whileHover={{ scale: 1.1 }}
         >
           <MessageIcon size={windowWidth && windowWidth < 768 ? 16 : 14} />

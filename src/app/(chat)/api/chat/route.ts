@@ -99,12 +99,11 @@ export async function POST(request: Request) {
         tools: {
           createPrompt: {
             description:
-              "Create a prompt for a writing activity. This tool will call other functions that will generate the contents of the prompt based on the title and kind.",
+              "Create a prompt for a writing activity. This tool will call other functions that will generate the contents of the prompt based on the title.",
             parameters: z.object({
               title: z.string(),
-              kind: z.enum(["text", "code"]),
             }),
-            execute: async ({ title, kind }) => {
+            execute: async ({ title }) => {
               const id = generateUUID();
               let draftText = "";
               dataStream.writeData({
@@ -116,62 +115,31 @@ export async function POST(request: Request) {
                 content: title,
               });
               dataStream.writeData({
-                type: "kind",
-                content: kind,
-              });
-              dataStream.writeData({
                 type: "clear",
                 content: "",
               });
-              if (kind === "text") {
-                const { fullStream } = streamText({
-                  model: customModel(model.apiIdentifier),
-                  system:
-                    "Write about the given topic. Markdown is supported. Use headings wherever appropriate.",
-                  prompt: title,
-                });
-                for await (const delta of fullStream) {
-                  const { type } = delta;
-                  if (type === "text-delta") {
-                    const { textDelta } = delta;
-                    draftText += textDelta;
-                    dataStream.writeData({
-                      type: "text-delta",
-                      content: textDelta,
-                    });
-                  }
+              const { fullStream } = streamText({
+                model: customModel(model.apiIdentifier),
+                system:
+                  "You are an expert at creating clear and effective prompts for language models. Create a detailed prompt that will help guide the AI to generate high-quality, specific responses. Include clear instructions, context, and any necessary constraints. Use markdown formatting for better readability.",
+                prompt: title,
+              });
+              for await (const delta of fullStream) {
+                const { type } = delta;
+                if (type === "text-delta") {
+                  const { textDelta } = delta;
+                  draftText += textDelta;
+                  dataStream.writeData({
+                    type: "text-delta",
+                    content: textDelta,
+                  });
                 }
-                dataStream.writeData({ type: "finish", content: "" });
-              } else if (kind === "code") {
-                const { fullStream } = streamObject({
-                  model: customModel(model.apiIdentifier),
-                  system: codePrompt,
-                  prompt: title,
-                  schema: z.object({
-                    code: z.string(),
-                  }),
-                });
-                for await (const delta of fullStream) {
-                  const { type } = delta;
-                  if (type === "object") {
-                    const { object } = delta;
-                    const { code } = object;
-                    if (code) {
-                      dataStream.writeData({
-                        type: "code-delta",
-                        content: code ?? "",
-                      });
-                      draftText = code;
-                    }
-                  }
-                }
-                dataStream.writeData({ type: "finish", content: "" });
               }
+              dataStream.writeData({ type: "finish", content: "" });
               if (session.user?.id) {
                 await savePrompt({
                   id,
                   title,
-                  kind,
                   content: draftText,
                   userId: session.user.id,
                 });
@@ -179,7 +147,6 @@ export async function POST(request: Request) {
               return {
                 id,
                 title,
-                kind,
                 content: "A prompt was created and is now visible to the user.",
               };
             },
@@ -205,70 +172,42 @@ export async function POST(request: Request) {
                 type: "clear",
                 content: prompt.title,
               });
-              if (prompt.kind === "text") {
-                const { fullStream } = streamText({
-                  model: customModel(model.apiIdentifier),
-                  system: updatePromptPrompt(currentContent),
-                  prompt: description,
-                  experimental_providerMetadata: {
-                    openai: {
-                      prediction: {
-                        type: "content",
-                        content: currentContent,
-                      },
+              const { fullStream } = streamText({
+                model: customModel(model.apiIdentifier),
+                system: updatePromptPrompt(currentContent),
+                prompt: description,
+                experimental_providerMetadata: {
+                  openai: {
+                    prediction: {
+                      type: "content",
+                      content: currentContent,
                     },
                   },
-                });
-                for await (const delta of fullStream) {
-                  const { type } = delta;
-                  if (type === "text-delta") {
-                    const { textDelta } = delta;
-                    draftText += textDelta;
-                    dataStream.writeData({
-                      type: "text-delta",
-                      content: textDelta,
-                    });
-                  }
+                },
+              });
+              for await (const delta of fullStream) {
+                const { type } = delta;
+                if (type === "text-delta") {
+                  const { textDelta } = delta;
+                  draftText += textDelta;
+                  dataStream.writeData({
+                    type: "text-delta",
+                    content: textDelta,
+                  });
                 }
-                dataStream.writeData({ type: "finish", content: "" });
-              } else if (prompt.kind === "code") {
-                const { fullStream } = streamObject({
-                  model: customModel(model.apiIdentifier),
-                  system: updatePromptPrompt(currentContent),
-                  prompt: description,
-                  schema: z.object({
-                    code: z.string(),
-                  }),
-                });
-                for await (const delta of fullStream) {
-                  const { type } = delta;
-                  if (type === "object") {
-                    const { object } = delta;
-                    const { code } = object;
-                    if (code) {
-                      dataStream.writeData({
-                        type: "code-delta",
-                        content: code ?? "",
-                      });
-                      draftText = code;
-                    }
-                  }
-                }
-                dataStream.writeData({ type: "finish", content: "" });
               }
+              dataStream.writeData({ type: "finish", content: "" });
               if (session.user?.id) {
                 await savePrompt({
                   id,
                   title: prompt.title,
                   content: draftText,
-                  kind: prompt.kind,
                   userId: session.user.id,
                 });
               }
               return {
                 id,
                 title: prompt.title,
-                kind: prompt.kind,
                 content: "The prompt has been updated successfully.",
               };
             },
@@ -337,7 +276,6 @@ export async function POST(request: Request) {
               return {
                 id: promptId,
                 title: prompt.title,
-                kind: prompt.kind,
                 message: "Suggestions have been added to the prompt",
               };
             },

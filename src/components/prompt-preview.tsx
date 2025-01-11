@@ -63,7 +63,7 @@ export function PromptPreview({
       return (
         <PromptToolResult
           type="create"
-          result={{ id: result.id, title: result.title, kind: result.kind }}
+          result={{ id: result.id, title: result.title }}
           isReadonly={isReadonly}
         />
       );
@@ -89,7 +89,6 @@ export function PromptPreview({
     : block.status === "streaming"
       ? {
           title: block.title,
-          kind: block.kind,
           content: block.content,
           id: block.promptId,
           createdAt: new Date(),
@@ -149,7 +148,6 @@ const PureHitboxLayer = ({
           : {
               ...block,
               promptId: result.id,
-              kind: result.kind,
               isVisible: true,
               boundingBox: {
                 left: boundingBox.x,
@@ -219,14 +217,6 @@ const PromptHeader = memo(PurePromptHeader, (prevProps, nextProps) => {
 const PromptContent = ({ prompt }: { prompt: Prompt }) => {
   const { block } = useBlock();
 
-  const containerClassName = cn(
-    "h-[257px] overflow-y-scroll border rounded-b-2xl dark:bg-muted border-t-0 dark:border-zinc-700",
-    {
-      "p-4 sm:px-14 sm:py-16": prompt.kind === "text",
-      "p-0": prompt.kind === "code",
-    },
-  );
-
   const commonProps = {
     content: prompt.content ?? "",
     isCurrentVersion: true,
@@ -237,16 +227,8 @@ const PromptContent = ({ prompt }: { prompt: Prompt }) => {
   };
 
   return (
-    <div className={containerClassName}>
-      {prompt.kind === "text" ? (
-        <Editor {...commonProps} />
-      ) : prompt.kind === "code" ? (
-        <div className="relative flex w-full flex-1">
-          <div className="absolute inset-0">
-            <CodeEditor {...commonProps} />
-          </div>
-        </div>
-      ) : null}
+    <div className="h-[257px] overflow-y-scroll rounded-b-2xl border border-t-0 p-4 dark:border-zinc-700 dark:bg-muted sm:px-14 sm:py-16">
+      <Editor {...commonProps} />
     </div>
   );
 };

@@ -72,9 +72,6 @@ export const prompts = pgTable(
     createdAt: timestamp("createdAt").notNull(),
     title: text("title").notNull(),
     content: text("content"),
-    kind: varchar("text", { enum: ["text", "code"] })
-      .notNull()
-      .default("text"),
     userId: uuid("userId")
       .notNull()
       .references(() => users.id),

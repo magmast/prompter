@@ -5,7 +5,6 @@ import { and, asc, desc, eq, gt, gte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
-import type { BlockKind } from "@/components/block";
 import { env } from "@/lib/env";
 
 import {
@@ -174,13 +173,11 @@ export async function getVotesByChatId({ id }: { id: string }) {
 export async function savePrompt({
   id,
   title,
-  kind,
   content,
   userId,
 }: {
   id: string;
   title: string;
-  kind: BlockKind;
   content: string;
   userId: string;
 }) {
@@ -188,7 +185,6 @@ export async function savePrompt({
     return await db.insert(promptsTable).values({
       id,
       title,
-      kind,
       content,
       userId,
       createdAt: new Date(),
