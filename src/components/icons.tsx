@@ -1,4 +1,4 @@
-export const BotIcon = () => {
+export function BotIcon() {
   return (
     <svg
       height="16"
@@ -15,9 +15,9 @@ export const BotIcon = () => {
       />
     </svg>
   );
-};
+}
 
-export const UserIcon = () => {
+export function UserIcon() {
   return (
     <svg
       data-testid="geist-icon"
@@ -35,9 +35,9 @@ export const UserIcon = () => {
       />
     </svg>
   );
-};
+}
 
-export const AttachmentIcon = () => {
+export function AttachmentIcon() {
   return (
     <svg
       height="16"
@@ -54,9 +54,9 @@ export const AttachmentIcon = () => {
       />
     </svg>
   );
-};
+}
 
-export const VercelIcon = ({ size = 17 }) => {
+export function VercelIcon({ size = 17 }) {
   return (
     <svg
       height={size}
@@ -73,9 +73,9 @@ export const VercelIcon = ({ size = 17 }) => {
       />
     </svg>
   );
-};
+}
 
-export const GitIcon = () => {
+export function GitIcon() {
   return (
     <svg
       height="16"
@@ -99,9 +99,9 @@ export const GitIcon = () => {
       </defs>
     </svg>
   );
-};
+}
 
-export const BoxIcon = ({ size = 16 }: { size: number }) => {
+export function BoxIcon({ size = 16 }: { size: number }) {
   return (
     <svg
       height={size}
@@ -118,9 +118,9 @@ export const BoxIcon = ({ size = 16 }: { size: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const HomeIcon = ({ size = 16 }: { size: number }) => {
+export function HomeIcon({ size = 16 }: { size: number }) {
   return (
     <svg
       height={size}
@@ -137,9 +137,9 @@ export const HomeIcon = ({ size = 16 }: { size: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const GPSIcon = ({ size = 16 }: { size: number }) => {
+export function GPSIcon({ size = 16 }: { size: number }) {
   return (
     <svg
       height={size}
@@ -158,9 +158,9 @@ export const GPSIcon = ({ size = 16 }: { size: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const InvoiceIcon = ({ size = 16 }: { size: number }) => {
+export function InvoiceIcon({ size = 16 }: { size: number }) {
   return (
     <svg
       height={size}
@@ -177,9 +177,9 @@ export const InvoiceIcon = ({ size = 16 }: { size: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const LogoOpenAI = ({ size = 16 }: { size?: number }) => {
+export function LogoOpenAI({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -194,9 +194,9 @@ export const LogoOpenAI = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const LogoGoogle = ({ size = 16 }: { size?: number }) => {
+export function LogoGoogle({ size = 16 }: { size?: number }) {
   return (
     <svg
       data-testid="geist-icon"
@@ -224,9 +224,9 @@ export const LogoGoogle = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const LogoAnthropic = () => {
+export function LogoAnthropic() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -244,9 +244,9 @@ export const LogoAnthropic = () => {
       />
     </svg>
   );
-};
+}
 
-export const RouteIcon = ({ size = 16 }: { size?: number }) => {
+export function RouteIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -263,9 +263,9 @@ export const RouteIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const FileIcon = ({ size = 16 }: { size?: number }) => {
+export function FileIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -282,9 +282,9 @@ export const FileIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const LoaderIcon = ({ size = 16 }: { size?: number }) => {
+export function LoaderIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -357,9 +357,9 @@ export const LoaderIcon = ({ size = 16 }: { size?: number }) => {
       </defs>
     </svg>
   );
-};
+}
 
-export const UploadIcon = ({ size = 16 }: { size?: number }) => {
+export function UploadIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       data-testid="geist-icon"
@@ -377,9 +377,9 @@ export const UploadIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const MenuIcon = ({ size = 16 }: { size?: number }) => {
+export function MenuIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -396,9 +396,9 @@ export const MenuIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const PencilEditIcon = ({ size = 16 }: { size?: number }) => {
+export function PencilEditIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -415,9 +415,9 @@ export const PencilEditIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const CheckedSquare = ({ size = 16 }: { size?: number }) => {
+export function CheckedSquare({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -434,9 +434,9 @@ export const CheckedSquare = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const UncheckedSquare = ({ size = 16 }: { size?: number }) => {
+export function UncheckedSquare({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -456,9 +456,9 @@ export const UncheckedSquare = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const MoreIcon = ({ size = 16 }: { size?: number }) => {
+export function MoreIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -475,9 +475,9 @@ export const MoreIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const TrashIcon = ({ size = 16 }: { size?: number }) => {
+export function TrashIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -494,9 +494,9 @@ export const TrashIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const InfoIcon = ({ size = 16 }: { size?: number }) => {
+export function InfoIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -513,9 +513,9 @@ export const InfoIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const ArrowUpIcon = ({ size = 16 }: { size?: number }) => {
+export function ArrowUpIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -532,9 +532,9 @@ export const ArrowUpIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const StopIcon = ({ size = 16 }: { size?: number }) => {
+export function StopIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -550,9 +550,9 @@ export const StopIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const PaperclipIcon = ({ size = 16 }: { size?: number }) => {
+export function PaperclipIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -570,9 +570,9 @@ export const PaperclipIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const MoreHorizontalIcon = ({ size = 16 }: { size?: number }) => {
+export function MoreHorizontalIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -589,9 +589,9 @@ export const MoreHorizontalIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const MessageIcon = ({ size = 16 }: { size?: number }) => {
+export function MessageIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -608,253 +608,281 @@ export const MessageIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const CrossIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M12.4697 13.5303L13 14.0607L14.0607 13L13.5303 12.4697L9.06065 7.99999L13.5303 3.53032L14.0607 2.99999L13 1.93933L12.4697 2.46966L7.99999 6.93933L3.53032 2.46966L2.99999 1.93933L1.93933 2.99999L2.46966 3.53032L6.93933 7.99999L2.46966 12.4697L1.93933 13L2.99999 14.0607L3.53032 13.5303L7.99999 9.06065L12.4697 13.5303Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function CrossIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12.4697 13.5303L13 14.0607L14.0607 13L13.5303 12.4697L9.06065 7.99999L13.5303 3.53032L14.0607 2.99999L13 1.93933L12.4697 2.46966L7.99999 6.93933L3.53032 2.46966L2.99999 1.93933L1.93933 2.99999L2.46966 3.53032L6.93933 7.99999L2.46966 12.4697L1.93933 13L2.99999 14.0607L3.53032 13.5303L7.99999 9.06065L12.4697 13.5303Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const CrossSmallIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M9.96966 11.0303L10.5 11.5607L11.5607 10.5L11.0303 9.96966L9.06065 7.99999L11.0303 6.03032L11.5607 5.49999L10.5 4.43933L9.96966 4.96966L7.99999 6.93933L6.03032 4.96966L5.49999 4.43933L4.43933 5.49999L4.96966 6.03032L6.93933 7.99999L4.96966 9.96966L4.43933 10.5L5.49999 11.5607L6.03032 11.0303L7.99999 9.06065L9.96966 11.0303Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function CrossSmallIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M9.96966 11.0303L10.5 11.5607L11.5607 10.5L11.0303 9.96966L9.06065 7.99999L11.0303 6.03032L11.5607 5.49999L10.5 4.43933L9.96966 4.96966L7.99999 6.93933L6.03032 4.96966L5.49999 4.43933L4.43933 5.49999L4.96966 6.03032L6.93933 7.99999L4.96966 9.96966L4.43933 10.5L5.49999 11.5607L6.03032 11.0303L7.99999 9.06065L9.96966 11.0303Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const UndoIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M13.5 8C13.5 4.96643 11.0257 2.5 7.96452 2.5C5.42843 2.5 3.29365 4.19393 2.63724 6.5H5.25H6V8H5.25H0.75C0.335787 8 0 7.66421 0 7.25V2.75V2H1.5V2.75V5.23347C2.57851 2.74164 5.06835 1 7.96452 1C11.8461 1 15 4.13001 15 8C15 11.87 11.8461 15 7.96452 15C5.62368 15 3.54872 13.8617 2.27046 12.1122L1.828 11.5066L3.03915 10.6217L3.48161 11.2273C4.48831 12.6051 6.12055 13.5 7.96452 13.5C11.0257 13.5 13.5 11.0336 13.5 8Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function UndoIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M13.5 8C13.5 4.96643 11.0257 2.5 7.96452 2.5C5.42843 2.5 3.29365 4.19393 2.63724 6.5H5.25H6V8H5.25H0.75C0.335787 8 0 7.66421 0 7.25V2.75V2H1.5V2.75V5.23347C2.57851 2.74164 5.06835 1 7.96452 1C11.8461 1 15 4.13001 15 8C15 11.87 11.8461 15 7.96452 15C5.62368 15 3.54872 13.8617 2.27046 12.1122L1.828 11.5066L3.03915 10.6217L3.48161 11.2273C4.48831 12.6051 6.12055 13.5 7.96452 13.5C11.0257 13.5 13.5 11.0336 13.5 8Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const RedoIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M2.5 8C2.5 4.96643 4.97431 2.5 8.03548 2.5C10.5716 2.5 12.7064 4.19393 13.3628 6.5H10.75H10V8H10.75H15.25C15.6642 8 16 7.66421 16 7.25V2.75V2H14.5V2.75V5.23347C13.4215 2.74164 10.9316 1 8.03548 1C4.1539 1 1 4.13001 1 8C1 11.87 4.1539 15 8.03548 15C10.3763 15 12.4513 13.8617 13.7295 12.1122L14.172 11.5066L12.9609 10.6217L12.5184 11.2273C11.5117 12.6051 9.87945 13.5 8.03548 13.5C4.97431 13.5 2.5 11.0336 2.5 8Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function RedoIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M2.5 8C2.5 4.96643 4.97431 2.5 8.03548 2.5C10.5716 2.5 12.7064 4.19393 13.3628 6.5H10.75H10V8H10.75H15.25C15.6642 8 16 7.66421 16 7.25V2.75V2H14.5V2.75V5.23347C13.4215 2.74164 10.9316 1 8.03548 1C4.1539 1 1 4.13001 1 8C1 11.87 4.1539 15 8.03548 15C10.3763 15 12.4513 13.8617 13.7295 12.1122L14.172 11.5066L12.9609 10.6217L12.5184 11.2273C11.5117 12.6051 9.87945 13.5 8.03548 13.5C4.97431 13.5 2.5 11.0336 2.5 8Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const DeltaIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M2.67705 15H1L1.75 13.5L6.16147 4.67705L6.15836 4.67082L6.16667 4.66667L7.16147 2.67705L8 1L8.83853 2.67705L14.25 13.5L15 15H13.3229H2.67705ZM7 6.3541L10.5729 13.5H3.42705L7 6.3541Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function DeltaIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M2.67705 15H1L1.75 13.5L6.16147 4.67705L6.15836 4.67082L6.16667 4.66667L7.16147 2.67705L8 1L8.83853 2.67705L14.25 13.5L15 15H13.3229H2.67705ZM7 6.3541L10.5729 13.5H3.42705L7 6.3541Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const PenIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M8.75 0.189331L9.28033 0.719661L15.2803 6.71966L15.8107 7.24999L15.2803 7.78032L13.7374 9.32322C13.1911 9.8696 12.3733 9.97916 11.718 9.65188L9.54863 13.5568C8.71088 15.0648 7.12143 16 5.39639 16H0.75H0V15.25V10.6036C0 8.87856 0.935237 7.28911 2.4432 6.45136L6.34811 4.28196C6.02084 3.62674 6.13039 2.80894 6.67678 2.26255L8.21967 0.719661L8.75 0.189331ZM7.3697 5.43035L10.5696 8.63029L8.2374 12.8283C7.6642 13.8601 6.57668 14.5 5.39639 14.5H2.56066L5.53033 11.5303L4.46967 10.4697L1.5 13.4393V10.6036C1.5 9.42331 2.1399 8.33579 3.17166 7.76259L7.3697 5.43035ZM12.6768 8.26256C12.5791 8.36019 12.4209 8.36019 12.3232 8.26255L12.0303 7.96966L8.03033 3.96966L7.73744 3.67677C7.63981 3.57914 7.63981 3.42085 7.73744 3.32321L8.75 2.31065L13.6893 7.24999L12.6768 8.26256Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function PenIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M8.75 0.189331L9.28033 0.719661L15.2803 6.71966L15.8107 7.24999L15.2803 7.78032L13.7374 9.32322C13.1911 9.8696 12.3733 9.97916 11.718 9.65188L9.54863 13.5568C8.71088 15.0648 7.12143 16 5.39639 16H0.75H0V15.25V10.6036C0 8.87856 0.935237 7.28911 2.4432 6.45136L6.34811 4.28196C6.02084 3.62674 6.13039 2.80894 6.67678 2.26255L8.21967 0.719661L8.75 0.189331ZM7.3697 5.43035L10.5696 8.63029L8.2374 12.8283C7.6642 13.8601 6.57668 14.5 5.39639 14.5H2.56066L5.53033 11.5303L4.46967 10.4697L1.5 13.4393V10.6036C1.5 9.42331 2.1399 8.33579 3.17166 7.76259L7.3697 5.43035ZM12.6768 8.26256C12.5791 8.36019 12.4209 8.36019 12.3232 8.26255L12.0303 7.96966L8.03033 3.96966L7.73744 3.67677C7.63981 3.57914 7.63981 3.42085 7.73744 3.32321L8.75 2.31065L13.6893 7.24999L12.6768 8.26256Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const SummarizeIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M1.75 12H1V10.5H1.75H5.25H6V12H5.25H1.75ZM1.75 7.75H1V6.25H1.75H4.25H5V7.75H4.25H1.75ZM1.75 3.5H1V2H1.75H7.25H8V3.5H7.25H1.75ZM12.5303 14.7803C12.2374 15.0732 11.7626 15.0732 11.4697 14.7803L9.21967 12.5303L8.68934 12L9.75 10.9393L10.2803 11.4697L11.25 12.4393V2.75V2H12.75V2.75V12.4393L13.7197 11.4697L14.25 10.9393L15.3107 12L14.7803 12.5303L12.5303 14.7803Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function SummarizeIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M1.75 12H1V10.5H1.75H5.25H6V12H5.25H1.75ZM1.75 7.75H1V6.25H1.75H4.25H5V7.75H4.25H1.75ZM1.75 3.5H1V2H1.75H7.25H8V3.5H7.25H1.75ZM12.5303 14.7803C12.2374 15.0732 11.7626 15.0732 11.4697 14.7803L9.21967 12.5303L8.68934 12L9.75 10.9393L10.2803 11.4697L11.25 12.4393V2.75V2H12.75V2.75V12.4393L13.7197 11.4697L14.25 10.9393L15.3107 12L14.7803 12.5303L12.5303 14.7803Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const SidebarLeftIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M6.245 2.5H14.5V12.5C14.5 13.0523 14.0523 13.5 13.5 13.5H6.245V2.5ZM4.995 2.5H1.5V12.5C1.5 13.0523 1.94772 13.5 2.5 13.5H4.995V2.5ZM0 1H1.5H14.5H16V2.5V12.5C16 13.8807 14.8807 15 13.5 15H2.5C1.11929 15 0 13.8807 0 12.5V2.5V1Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function SidebarLeftIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M6.245 2.5H14.5V12.5C14.5 13.0523 14.0523 13.5 13.5 13.5H6.245V2.5ZM4.995 2.5H1.5V12.5C1.5 13.0523 1.94772 13.5 2.5 13.5H4.995V2.5ZM0 1H1.5H14.5H16V2.5V12.5C16 13.8807 14.8807 15 13.5 15H2.5C1.11929 15 0 13.8807 0 12.5V2.5V1Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const PlusIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M8.75 1.75V1H7.25V1.75V6.75H2.25H1.5V8.25H2.25H7.25V13.25V14H8.75V13.25V8.25H13.75H14.5V6.75H13.75H8.75V1.75Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function PlusIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M8.75 1.75V1H7.25V1.75V6.75H2.25H1.5V8.25H2.25H7.25V13.25V14H8.75V13.25V8.25H13.75H14.5V6.75H13.75H8.75V1.75Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const CopyIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M2.75 0.5C1.7835 0.5 1 1.2835 1 2.25V9.75C1 10.7165 1.7835 11.5 2.75 11.5H3.75H4.5V10H3.75H2.75C2.61193 10 2.5 9.88807 2.5 9.75V2.25C2.5 2.11193 2.61193 2 2.75 2H8.25C8.38807 2 8.5 2.11193 8.5 2.25V3H10V2.25C10 1.2835 9.2165 0.5 8.25 0.5H2.75ZM7.75 4.5C6.7835 4.5 6 5.2835 6 6.25V13.75C6 14.7165 6.7835 15.5 7.75 15.5H13.25C14.2165 15.5 15 14.7165 15 13.75V6.25C15 5.2835 14.2165 4.5 13.25 4.5H7.75ZM7.5 6.25C7.5 6.11193 7.61193 6 7.75 6H13.25C13.3881 6 13.5 6.11193 13.5 6.25V13.75C13.5 13.8881 13.3881 14 13.25 14H7.75C7.61193 14 7.5 13.8881 7.5 13.75V6.25Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function CopyIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M2.75 0.5C1.7835 0.5 1 1.2835 1 2.25V9.75C1 10.7165 1.7835 11.5 2.75 11.5H3.75H4.5V10H3.75H2.75C2.61193 10 2.5 9.88807 2.5 9.75V2.25C2.5 2.11193 2.61193 2 2.75 2H8.25C8.38807 2 8.5 2.11193 8.5 2.25V3H10V2.25C10 1.2835 9.2165 0.5 8.25 0.5H2.75ZM7.75 4.5C6.7835 4.5 6 5.2835 6 6.25V13.75C6 14.7165 6.7835 15.5 7.75 15.5H13.25C14.2165 15.5 15 14.7165 15 13.75V6.25C15 5.2835 14.2165 4.5 13.25 4.5H7.75ZM7.5 6.25C7.5 6.11193 7.61193 6 7.75 6H13.25C13.3881 6 13.5 6.11193 13.5 6.25V13.75C13.5 13.8881 13.3881 14 13.25 14H7.75C7.61193 14 7.5 13.8881 7.5 13.75V6.25Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const ThumbUpIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M6.89531 2.23972C6.72984 2.12153 6.5 2.23981 6.5 2.44315V5.25001C6.5 6.21651 5.7165 7.00001 4.75 7.00001H2.5V13.5H12.1884C12.762 13.5 13.262 13.1096 13.4011 12.5532L14.4011 8.55318C14.5984 7.76425 14.0017 7.00001 13.1884 7.00001H9.25H8.5V6.25001V3.51458C8.5 3.43384 8.46101 3.35807 8.39531 3.31114L6.89531 2.23972ZM5 2.44315C5 1.01975 6.6089 0.191779 7.76717 1.01912L9.26717 2.09054C9.72706 2.41904 10 2.94941 10 3.51458V5.50001H13.1884C14.9775 5.50001 16.2903 7.18133 15.8563 8.91698L14.8563 12.917C14.5503 14.1412 13.4503 15 12.1884 15H1.75H1V14.25V6.25001V5.50001H1.75H4.75C4.88807 5.50001 5 5.38808 5 5.25001V2.44315Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function ThumbUpIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M6.89531 2.23972C6.72984 2.12153 6.5 2.23981 6.5 2.44315V5.25001C6.5 6.21651 5.7165 7.00001 4.75 7.00001H2.5V13.5H12.1884C12.762 13.5 13.262 13.1096 13.4011 12.5532L14.4011 8.55318C14.5984 7.76425 14.0017 7.00001 13.1884 7.00001H9.25H8.5V6.25001V3.51458C8.5 3.43384 8.46101 3.35807 8.39531 3.31114L6.89531 2.23972ZM5 2.44315C5 1.01975 6.6089 0.191779 7.76717 1.01912L9.26717 2.09054C9.72706 2.41904 10 2.94941 10 3.51458V5.50001H13.1884C14.9775 5.50001 16.2903 7.18133 15.8563 8.91698L14.8563 12.917C14.5503 14.1412 13.4503 15 12.1884 15H1.75H1V14.25V6.25001V5.50001H1.75H4.75C4.88807 5.50001 5 5.38808 5 5.25001V2.44315Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const ThumbDownIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M6.89531 13.7603C6.72984 13.8785 6.5 13.7602 6.5 13.5569V10.75C6.5 9.7835 5.7165 9 4.75 9H2.5V2.5H12.1884C12.762 2.5 13.262 2.89037 13.4011 3.44683L14.4011 7.44683C14.5984 8.23576 14.0017 9 13.1884 9H9.25H8.5V9.75V12.4854C8.5 12.5662 8.46101 12.6419 8.39531 12.6889L6.89531 13.7603ZM5 13.5569C5 14.9803 6.6089 15.8082 7.76717 14.9809L9.26717 13.9095C9.72706 13.581 10 13.0506 10 12.4854V10.5H13.1884C14.9775 10.5 16.2903 8.81868 15.8563 7.08303L14.8563 3.08303C14.5503 1.85882 13.4503 1 12.1884 1H1.75H1V1.75V9.75V10.5H1.75H4.75C4.88807 10.5 5 10.6119 5 10.75V13.5569Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function ThumbDownIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M6.89531 13.7603C6.72984 13.8785 6.5 13.7602 6.5 13.5569V10.75C6.5 9.7835 5.7165 9 4.75 9H2.5V2.5H12.1884C12.762 2.5 13.262 2.89037 13.4011 3.44683L14.4011 7.44683C14.5984 8.23576 14.0017 9 13.1884 9H9.25H8.5V9.75V12.4854C8.5 12.5662 8.46101 12.6419 8.39531 12.6889L6.89531 13.7603ZM5 13.5569C5 14.9803 6.6089 15.8082 7.76717 14.9809L9.26717 13.9095C9.72706 13.581 10 13.0506 10 12.4854V10.5H13.1884C14.9775 10.5 16.2903 8.81868 15.8563 7.08303L14.8563 3.08303C14.5503 1.85882 13.4503 1 12.1884 1H1.75H1V1.75V9.75V10.5H1.75H4.75C4.88807 10.5 5 10.6119 5 10.75V13.5569Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const ChevronDownIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M12.0607 6.74999L11.5303 7.28032L8.7071 10.1035C8.31657 10.4941 7.68341 10.4941 7.29288 10.1035L4.46966 7.28032L3.93933 6.74999L4.99999 5.68933L5.53032 6.21966L7.99999 8.68933L10.4697 6.21966L11 5.68933L12.0607 6.74999Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function ChevronDownIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12.0607 6.74999L11.5303 7.28032L8.7071 10.1035C8.31657 10.4941 7.68341 10.4941 7.29288 10.1035L4.46966 7.28032L3.93933 6.74999L4.99999 5.68933L5.53032 6.21966L7.99999 8.68933L10.4697 6.21966L11 5.68933L12.0607 6.74999Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const SparklesIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      d="M2.5 0.5V0H3.5V0.5C3.5 1.60457 4.39543 2.5 5.5 2.5H6V3V3.5H5.5C4.39543 3.5 3.5 4.39543 3.5 5.5V6H3H2.5V5.5C2.5 4.39543 1.60457 3.5 0.5 3.5H0V3V2.5H0.5C1.60457 2.5 2.5 1.60457 2.5 0.5Z"
-      fill="currentColor"
-    />
-    <path
-      d="M14.5 4.5V5H13.5V4.5C13.5 3.94772 13.0523 3.5 12.5 3.5H12V3V2.5H12.5C13.0523 2.5 13.5 2.05228 13.5 1.5V1H14H14.5V1.5C14.5 2.05228 14.9477 2.5 15.5 2.5H16V3V3.5H15.5C14.9477 3.5 14.5 3.94772 14.5 4.5Z"
-      fill="currentColor"
-    />
-    <path
-      d="M8.40706 4.92939L8.5 4H9.5L9.59294 4.92939C9.82973 7.29734 11.7027 9.17027 14.0706 9.40706L15 9.5V10.5L14.0706 10.5929C11.7027 10.8297 9.82973 12.7027 9.59294 15.0706L9.5 16H8.5L8.40706 15.0706C8.17027 12.7027 6.29734 10.8297 3.92939 10.5929L3 10.5V9.5L3.92939 9.40706C6.29734 9.17027 8.17027 7.29734 8.40706 4.92939Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function SparklesIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        d="M2.5 0.5V0H3.5V0.5C3.5 1.60457 4.39543 2.5 5.5 2.5H6V3V3.5H5.5C4.39543 3.5 3.5 4.39543 3.5 5.5V6H3H2.5V5.5C2.5 4.39543 1.60457 3.5 0.5 3.5H0V3V2.5H0.5C1.60457 2.5 2.5 1.60457 2.5 0.5Z"
+        fill="currentColor"
+      />
+      <path
+        d="M14.5 4.5V5H13.5V4.5C13.5 3.94772 13.0523 3.5 12.5 3.5H12V3V2.5H12.5C13.0523 2.5 13.5 2.05228 13.5 1.5V1H14H14.5V1.5C14.5 2.05228 14.9477 2.5 15.5 2.5H16V3V3.5H15.5C14.9477 3.5 14.5 3.94772 14.5 4.5Z"
+        fill="currentColor"
+      />
+      <path
+        d="M8.40706 4.92939L8.5 4H9.5L9.59294 4.92939C9.82973 7.29734 11.7027 9.17027 14.0706 9.40706L15 9.5V10.5L14.0706 10.5929C11.7027 10.8297 9.82973 12.7027 9.59294 15.0706L9.5 16H8.5L8.40706 15.0706C8.17027 12.7027 6.29734 10.8297 3.92939 10.5929L3 10.5V9.5L3.92939 9.40706C6.29734 9.17027 8.17027 7.29734 8.40706 4.92939Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
-export const CheckCircleFillIcon = ({ size = 16 }: { size?: number }) => {
+export function CheckCircleFillIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -871,9 +899,9 @@ export const CheckCircleFillIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const GlobeIcon = ({ size = 16 }: { size?: number }) => {
+export function GlobeIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -890,9 +918,9 @@ export const GlobeIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const LockIcon = ({ size = 16 }: { size?: number }) => {
+export function LockIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -909,9 +937,9 @@ export const LockIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const EyeIcon = ({ size = 16 }: { size?: number }) => {
+export function EyeIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -928,9 +956,9 @@ export const EyeIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const ShareIcon = ({ size = 16 }: { size?: number }) => {
+export function ShareIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -947,9 +975,9 @@ export const ShareIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const CodeIcon = ({ size = 16 }: { size?: number }) => {
+export function CodeIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -966,9 +994,9 @@ export const CodeIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const PlayIcon = ({ size = 16 }: { size?: number }) => {
+export function PlayIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -985,9 +1013,9 @@ export const PlayIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const PythonIcon = ({ size = 16 }: { size?: number }) => {
+export function PythonIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -1006,9 +1034,9 @@ export const PythonIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const TerminalWindowIcon = ({ size = 16 }: { size?: number }) => {
+export function TerminalWindowIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -1025,9 +1053,9 @@ export const TerminalWindowIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const TerminalIcon = ({ size = 16 }: { size?: number }) => {
+export function TerminalIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -1044,9 +1072,9 @@ export const TerminalIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const ClockRewind = ({ size = 16 }: { size?: number }) => {
+export function ClockRewind({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -1063,9 +1091,9 @@ export const ClockRewind = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const LogsIcon = ({ size = 16 }: { size?: number }) => {
+export function LogsIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -1082,9 +1110,9 @@ export const LogsIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const ImageIcon = ({ size = 16 }: { size?: number }) => {
+export function ImageIcon({ size = 16 }: { size?: number }) {
   return (
     <svg
       height={size}
@@ -1101,21 +1129,23 @@ export const ImageIcon = ({ size = 16 }: { size?: number }) => {
       />
     </svg>
   );
-};
+}
 
-export const FullscreenIcon = ({ size = 16 }: { size?: number }) => (
-  <svg
-    height={size}
-    strokeLinejoin="round"
-    viewBox="0 0 16 16"
-    width={size}
-    style={{ color: "currentcolor" }}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M1 5.25V6H2.5V5.25V2.5H5.25H6V1H5.25H2C1.44772 1 1 1.44772 1 2V5.25ZM5.25 14.9994H6V13.4994H5.25H2.5V10.7494V9.99939H1V10.7494V13.9994C1 14.5517 1.44772 14.9994 2 14.9994H5.25ZM15 10V10.75V14C15 14.5523 14.5523 15 14 15H10.75H10V13.5H10.75H13.5V10.75V10H15ZM10.75 1H10V2.5H10.75H13.5V5.25V6H15V5.25V2C15 1.44772 14.5523 1 14 1H10.75Z"
-      fill="currentColor"
-    />
-  </svg>
-);
+export function FullscreenIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      height={size}
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width={size}
+      style={{ color: "currentcolor" }}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M1 5.25V6H2.5V5.25V2.5H5.25H6V1H5.25H2C1.44772 1 1 1.44772 1 2V5.25ZM5.25 14.9994H6V13.4994H5.25H2.5V10.7494V9.99939H1V10.7494V13.9994C1 14.5517 1.44772 14.9994 2 14.9994H5.25ZM15 10V10.75V14C15 14.5523 14.5523 15 14 15H10.75H10V13.5H10.75H13.5V10.75V10H15ZM10.75 1H10V2.5H10.75H13.5V5.25V6H15V5.25V2C15 1.44772 14.5523 1 14 1H10.75Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
