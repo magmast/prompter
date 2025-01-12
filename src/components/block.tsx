@@ -143,6 +143,7 @@ function PureBlock({
     }
   }, [prompts, setBlock]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     mutatePrompts();
   }, [block.status, mutatePrompts]);

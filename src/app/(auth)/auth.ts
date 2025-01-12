@@ -20,13 +20,14 @@ export const {
   providers: [
     Credentials({
       credentials: {},
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       async authorize({ email, password }: any) {
         const users = await getUser(email);
         if (users.length === 0) return null;
         // biome-ignore lint: Forbidden non-null assertion.
         const passwordsMatch = await compare(password, users[0].password!);
         if (!passwordsMatch) return null;
-        return users[0] as any;
+        return users[0];
       },
     }),
   ],
@@ -43,6 +44,7 @@ export const {
       token,
     }: {
       session: ExtendedSession;
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       token: any;
     }) {
       if (session.user) {

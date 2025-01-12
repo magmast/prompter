@@ -55,6 +55,7 @@ export function Console({ consoleOutputs, setConsoleOutputs }: ConsoleProps) {
     };
   }, [resize, stopResizing]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     consoleEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [consoleOutputs]);
@@ -65,8 +66,11 @@ export function Console({ consoleOutputs, setConsoleOutputs }: ConsoleProps) {
         className="fixed z-50 h-2 w-full cursor-ns-resize"
         onMouseDown={startResizing}
         style={{ bottom: height - 4 }}
+        tabIndex={0}
         role="slider"
-        aria-valuenow={minHeight}
+        aria-valuenow={height}
+        aria-valuemin={minHeight}
+        aria-valuemax={maxHeight}
       />
 
       <div

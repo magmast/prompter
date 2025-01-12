@@ -32,6 +32,7 @@ export function RunCodeButton({
   block: UIBlock;
   setConsoleOutputs: Dispatch<SetStateAction<Array<ConsoleOutput>>>;
 }) {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const [pyodide, setPyodide] = useState<any>(null);
   const isPython = true;
   const codeContent = block.content;
@@ -91,15 +92,16 @@ export function RunCodeButton({
         await currentPyodideInstance.runPythonAsync(codeContent);
 
         const output: string = await currentPyodideInstance.runPythonAsync(
-          `sys.stdout.getvalue()`,
+          "sys.stdout.getvalue()",
         );
 
         updateConsoleOutput(runId, output, "completed");
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       } catch (error: any) {
         updateConsoleOutput(runId, error.message, "failed");
       }
     }
-  }, [pyodide, codeContent, isPython, setConsoleOutputs, updateConsoleOutput]);
+  }, [pyodide, codeContent, setConsoleOutputs, updateConsoleOutput]);
 
   return (
     <Button
@@ -123,7 +125,6 @@ function PureBlockActions({
   currentVersionIndex,
   isCurrentVersion,
   mode,
-  setConsoleOutputs,
 }: BlockActionsProps) {
   const [_, copyToClipboard] = useCopyToClipboard();
 

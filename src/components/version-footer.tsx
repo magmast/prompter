@@ -21,7 +21,7 @@ interface VersionFooterProps {
 
 export const VersionFooter = ({
   handleVersionChange,
-  prompts: prompts,
+  prompts,
   currentVersionIndex,
 }: VersionFooterProps) => {
   const { block } = useBlock();

@@ -13,6 +13,12 @@ export const models: Array<Model> = [
     description: "OpenAI's GPT-4o Mini model",
   },
   {
+    id: "openai/gpt-4o",
+    label: "GPT-4o",
+    apiIdentifier: "openai/gpt-4o",
+    description: "OpenAI's GPT-4o model",
+  },
+  {
     id: "deepseek/deepseek-chat",
     label: "DeepSeek V3",
     apiIdentifier: "deepseek/deepseek-chat",

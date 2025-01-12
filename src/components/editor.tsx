@@ -23,14 +23,14 @@ import {
   suggestionsPluginKey,
 } from "@/lib/editor/suggestions";
 
-type EditorProps = {
+interface EditorProps {
   content: string;
   saveContent: (updatedContent: string, debounce: boolean) => void;
   status: "streaming" | "idle";
   isCurrentVersion: boolean;
   currentVersionIndex: number;
   suggestions: Array<Suggestion>;
-};
+}
 
 function PureEditor({
   content,
@@ -41,6 +41,8 @@ function PureEditor({
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<EditorView | null>(null);
 
+  // NOTE: we only want to run this effect once
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (containerRef.current && !editorRef.current) {
       const state = EditorState.create({
@@ -72,8 +74,6 @@ function PureEditor({
         editorRef.current = null;
       }
     };
-    // NOTE: we only want to run this effect once
-    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

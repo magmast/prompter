@@ -10,7 +10,11 @@ import { z } from "zod";
 import { auth } from "@/app/(auth)/auth";
 import { customModel } from "@/lib/ai";
 import { models } from "@/lib/ai/models";
-import { codePrompt, systemPrompt, updatePromptPrompt } from "@/lib/ai/prompts";
+import {
+  createPromptPrompt,
+  systemPrompt,
+  updatePromptPrompt,
+} from "@/lib/ai/prompts";
 import {
   deleteChatById,
   getChatById,
@@ -99,11 +103,16 @@ export async function POST(request: Request) {
         tools: {
           createPrompt: {
             description:
-              "Create a prompt for a writing activity. This tool will call other functions that will generate the contents of the prompt based on the title.",
+              "Create a prompt. This tool will call other functions that will generate the contents of the prompt based on the description.",
             parameters: z.object({
-              title: z.string(),
+              title: z.string().describe("Prompt title shown to the user"),
+              description: z
+                .string()
+                .describe(
+                  "The description of the prompt that other AI agent will use to create the prompt",
+                ),
             }),
-            execute: async ({ title }) => {
+            execute: async ({ title, description }) => {
               const id = generateUUID();
               let draftText = "";
               dataStream.writeData({
@@ -120,9 +129,8 @@ export async function POST(request: Request) {
               });
               const { fullStream } = streamText({
                 model: customModel(model.apiIdentifier),
-                system:
-                  "You are an expert at creating clear and effective prompts for language models. Create a detailed prompt that will help guide the AI to generate high-quality, specific responses. Include clear instructions, context, and any necessary constraints. Use markdown formatting for better readability.",
-                prompt: title,
+                system: createPromptPrompt,
+                prompt: description,
               });
               for await (const delta of fullStream) {
                 const { type } = delta;

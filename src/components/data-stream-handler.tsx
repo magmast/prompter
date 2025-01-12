@@ -29,13 +29,15 @@ export function DataStreamHandler({ id }: { id: string }) {
   useEffect(() => {
     if (!dataStream?.length) return;
 
-    const newDeltas = dataStream.slice(lastProcessedIndex.current + 1);
+    const newDeltas = dataStream.slice(
+      lastProcessedIndex.current + 1,
+    ) as DataStreamDelta[];
     lastProcessedIndex.current = dataStream.length - 1;
 
-    (newDeltas as DataStreamDelta[]).forEach((delta: DataStreamDelta) => {
+    for (const delta of newDeltas) {
       if (delta.type === "user-message-id") {
         setUserMessageIdFromServer(delta.content as string);
-        return;
+        continue;
       }
 
       setBlock((draftBlock) => {
@@ -101,7 +103,7 @@ export function DataStreamHandler({ id }: { id: string }) {
             return draftBlock;
         }
       });
-    });
+    }
   }, [dataStream, setBlock, setUserMessageIdFromServer]);
 
   return null;

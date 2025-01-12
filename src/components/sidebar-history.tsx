@@ -160,6 +160,7 @@ export function SidebarHistory({ user }: { user: User | undefined }) {
     fallbackData: [],
   });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     mutate();
   }, [pathname, mutate]);

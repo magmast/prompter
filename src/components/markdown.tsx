@@ -3,11 +3,18 @@ import React, { memo } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-import { CodeBlock } from "./code-block";
+import { cn } from "@/lib/utils";
 
 const components: Partial<Components> = {
-  // @ts-expect-error
-  code: CodeBlock,
+  code: ({ node, className, ...props }) => (
+    <code
+      {...props}
+      className={cn(
+        "rounded-md bg-zinc-100 px-1 py-0.5 text-sm dark:bg-zinc-800",
+        className,
+      )}
+    />
+  ),
   pre: ({ children }) => <>{children}</>,
   ol: ({ node, children, ...props }) => {
     return (

@@ -2,7 +2,8 @@
 
 import equal from "fast-deep-equal";
 import {
-  type MouseEvent,
+  type KeyboardEvent,
+  type UIEvent,
   memo,
   useCallback,
   useEffect,
@@ -13,10 +14,9 @@ import useSWR from "swr";
 
 import { useBlock } from "@/hooks/use-block";
 import type { Prompt } from "@/lib/db/schema";
-import { cn, fetcher } from "@/lib/utils";
+import { fetcher } from "@/lib/utils";
 
 import type { UIBlock } from "./block";
-import { CodeEditor } from "./code-editor";
 import { Editor } from "./editor";
 import { FileIcon, FullscreenIcon, LoaderIcon } from "./icons";
 import { PromptToolCall, PromptToolResult } from "./prompt";
@@ -24,7 +24,9 @@ import { InlinePromptSkeleton } from "./prompt-skeleton";
 
 interface PromptPreviewProps {
   isReadonly: boolean;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   result?: any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   args?: any;
 }
 
@@ -134,12 +136,13 @@ const PureHitboxLayer = ({
   result,
   setBlock,
 }: {
-  hitboxRef: React.RefObject<HTMLDivElement>;
+  hitboxRef: React.RefObject<HTMLDivElement | null>;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   result: any;
   setBlock: (updaterFn: UIBlock | ((currentBlock: UIBlock) => UIBlock)) => void;
 }) => {
   const handleClick = useCallback(
-    (event: MouseEvent<HTMLElement>) => {
+    (event: UIEvent<HTMLElement>) => {
       const boundingBox = event.currentTarget.getBoundingClientRect();
 
       setBlock((block) =>
@@ -161,11 +164,21 @@ const PureHitboxLayer = ({
     [setBlock, result],
   );
 
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLElement>) => {
+      if (event.key === "Enter") {
+        handleClick(event);
+      }
+    },
+    [handleClick],
+  );
+
   return (
     <div
       className="absolute left-0 top-0 z-10 size-full rounded-xl"
       ref={hitboxRef}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
       role="presentation"
       aria-hidden="true"
     >

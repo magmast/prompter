@@ -9,19 +9,21 @@ import React, { memo, useEffect, useRef } from "react";
 
 import type { Suggestion } from "@/lib/db/schema";
 
-type EditorProps = {
+interface EditorProps {
   content: string;
   saveContent: (updatedContent: string, debounce: boolean) => void;
   status: "streaming" | "idle";
   isCurrentVersion: boolean;
   currentVersionIndex: number;
   suggestions: Array<Suggestion>;
-};
+}
 
 function PureCodeEditor({ content, saveContent, status }: EditorProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<EditorView | null>(null);
 
+  // NOTE: we only want to run this effect once
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (containerRef.current && !editorRef.current) {
       const startState = EditorState.create({
@@ -41,8 +43,6 @@ function PureCodeEditor({ content, saveContent, status }: EditorProps) {
         editorRef.current = null;
       }
     };
-    // NOTE: we only want to run this effect once
-    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
